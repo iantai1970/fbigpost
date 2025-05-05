@@ -56,7 +56,7 @@ const componentClicked = (setLogin, setEmail) => {
 
 function FacebookLoginButton({ email, setEmail, loggedIn, setLogin }) {
   // const [accessToken, setAccessToken] = useState(null);
-  const facebookAppId = process.env.FACEBOOK_APP_ID;
+  const facebookAppId = process.env.REACT_APP_FACEBOOK_APP_ID;
 
   console.log("render FacebookLoginButton email", email);
   console.log("render FacebookLoginButton loggedIn", loggedIn);
