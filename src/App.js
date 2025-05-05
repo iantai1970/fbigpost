@@ -1,24 +1,25 @@
-import logo from "./logo.svg";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import FbDetail from "./pages/FbDetail";
+import FbSummary from "./pages/FbSummary";
+import UserLogin from "./pages/UserLogin";
+import { AuthProvider } from "./contexts/authContext";
 import "./App.css";
+import PrivateRoute from "./firebase/privateRoute.js";
 
 function App() {
+  //console.log(`App() rendered`);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React Hi
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/FbDetail/:job_id?" element={<FbDetail />} />
+          <Route path="/FbSummary" element={<FbSummary />} />
+          <Route path="/UserLogin" element={<UserLogin />} />
+          <Route path="/" element={<FbSummary />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

@@ -1,38 +1,99 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.my-facebook-button {
+  background-color: #4267b2; /* Facebook blue */
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  /*display: flex; /* For icon alignment */
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  transition: background-color 0.2s ease; /* Smooth hover effect */
+  width: 150px;
+}
+
+.my-facebook-button:hover {
+  background-color: #365899; /* Darker blue on hover */
+}
+
+.my-facebook-button .fa-facebook {
+  /* Style the icon */
+  margin-right: 8px;
+  font-size: 1.2em;
+}
+
+.section {
+  @apply bg-white border-blue-400 border-2 p-2 rounded-md shadow-xl;
+}
+
+.sectionHeader {
+  @apply h-8 bg-blue-500 text-white text-center rounded-t-md font-bold;
+}
+
+.defaultfontsize {
+  @apply text-sm;
+}
+
+/* ImageGrid.css */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 10px;
+  width: 100%; /* Set a fixed width for the grid (adjust as needed) */
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%; /* Creates a 1:1 aspect ratio (square) */
+  overflow: hidden; /* Hide any parts of the image that overflow */
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Scale and crop the image to fill the container */
+}
+
+.list-action-button {
+  background-color: #4267b2;
   color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px; /* Reduced padding */
+  height: 35px;
+  transition: background-color 0.2s ease;
+  max-width: 100%; /* Prevent overflowing */
 }
 
-.App-link {
-  color: #61dafb;
+.list-action-button:hover {
+  background-color: #365899;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.list-action-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(66, 103, 178, 0.5);
+}
+
+.list-action-button i {
+  margin-right: 5px;
+}
+
+/* Adjustments for Ag-Grid cell */
+.ag-cell {
+  /* Or a more specific selector for your Ag-Grid */
+  padding: 2px; /* Reduce cell padding */
+  overflow: hidden; /* Hide overflowing content */
 }
