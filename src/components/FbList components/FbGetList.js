@@ -96,7 +96,7 @@ function FacebookGetList() {
     fetchData();
   }, [serverHost, serverPort]); // Empty dependency array means this runs only once on mount
 
-  const TokenStatusCellRenderer = useCallback((params) => {
+  /*const TokenStatusCellRenderer = useCallback((params) => {
     const status = params.value; // The tokenStatus value ("Active" or "Expired")
 
     const style = {
@@ -104,7 +104,7 @@ function FacebookGetList() {
     };
 
     return <span style={style}>{status}</span>;
-  }, []);
+  }, []);*/
 
   const JobStatusCellRenderer = useCallback((params) => {
     const value = params.value;

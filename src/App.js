@@ -5,7 +5,7 @@ import FbSummary from "./pages/FbSummary";
 import UserLogin from "./pages/UserLogin";
 import { AuthProvider } from "./contexts/authContext";
 import "./App.css";
-import PrivateRoute from "./firebase/privateRoute.js";
+//import PrivateRoute from "./firebase/privateRoute.js";
 
 function App() {
   //console.log(`App() rendered`);
