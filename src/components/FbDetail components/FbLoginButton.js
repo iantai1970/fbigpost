@@ -3,6 +3,7 @@ import axios from "axios";
 
 const serverHost = process.env.REACT_APP_API_URL;
 const serverPort = process.env.REACT_APP_API_PORT;
+const facebookAppId = process.env.FACEBOOK_APP_ID;
 
 async function SendAccessTokenToServer(response, setEmail, loggedIn, setLogin) {
   console.log("FbButton->SendAccessTokenToServer", serverHost, serverPort);
@@ -58,6 +59,8 @@ function FacebookLoginButton({ email, setEmail, loggedIn, setLogin }) {
   // const [accessToken, setAccessToken] = useState(null);
   console.log("render FacebookLoginButton email", email);
   console.log("render FacebookLoginButton loggedIn", loggedIn);
+  console.log(`Facebook API ${facebookAppId}`);
+
   setLogin(false);
 
   const responseFacebook = (response) => {
@@ -86,7 +89,7 @@ function FacebookLoginButton({ email, setEmail, loggedIn, setLogin }) {
   return (
     <div className="justify-center text-center pb-1">
       <FacebookLogin
-        appId="1332245167992405" // Replace with your actual App ID
+        appId={facebookAppId} // Replace with your actual App ID
         textButton="Login Facebook"
         autoLoad={false}
         fields="name,email,picture" // Specifies the data you want to get from the user's profile
