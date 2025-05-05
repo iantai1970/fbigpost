@@ -60,7 +60,7 @@ function FacebookLoginButton({ email, setEmail, loggedIn, setLogin }) {
 
   console.log("render FacebookLoginButton email", email);
   console.log("render FacebookLoginButton loggedIn", loggedIn);
-  console.log(`Facebook API ${facebookAppId}`);
+  console.log(`Facebook App ID ${facebookAppId}`);
 
   setLogin(false);
 
