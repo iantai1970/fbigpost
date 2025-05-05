@@ -1,11 +1,10 @@
 import FacebookLogin from "react-facebook-login";
 import axios from "axios";
 
-const serverHost = process.env.REACT_APP_API_URL;
-const serverPort = process.env.REACT_APP_API_PORT;
-const facebookAppId = process.env.FACEBOOK_APP_ID;
-
 async function SendAccessTokenToServer(response, setEmail, loggedIn, setLogin) {
+  const serverHost = process.env.REACT_APP_API_URL;
+  const serverPort = process.env.REACT_APP_API_PORT;
+
   console.log("FbButton->SendAccessTokenToServer", serverHost, serverPort);
   const postURL = `${serverHost}:${serverPort}/api/facebook-login`;
   console.log(`postURL `, postURL);
@@ -57,6 +56,8 @@ const componentClicked = (setLogin, setEmail) => {
 
 function FacebookLoginButton({ email, setEmail, loggedIn, setLogin }) {
   // const [accessToken, setAccessToken] = useState(null);
+  const facebookAppId = process.env.FACEBOOK_APP_ID;
+
   console.log("render FacebookLoginButton email", email);
   console.log("render FacebookLoginButton loggedIn", loggedIn);
   console.log(`Facebook API ${facebookAppId}`);
