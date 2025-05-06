@@ -80,10 +80,11 @@ function FacebookGetList() {
       setLoading(true);
       try {
         //const postURL = `${serverHost}:${serverPort}/api/get-job-list`;
-        const postURL = `${serverHost}/api/get-job-list`;
+        const getURL = `${serverHost}/api/get-job-list`;
+        console.log(`getURL is`, getURL);
 
         const response = await axios.get(
-          postURL // Replace with your actual API endpoint
+          getURL // Replace with your actual API endpoint
         );
         console.log(`facebookGetList response.data is`, response.data[0]);
         setItems(response.data[0]); // Assuming the API returns an array of objects
