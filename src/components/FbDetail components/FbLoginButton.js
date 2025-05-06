@@ -5,7 +5,7 @@ async function SendAccessTokenToServer(response, setEmail, loggedIn, setLogin) {
   const serverHost = process.env.REACT_APP_API_URL;
   //const serverPort = process.env.REACT_APP_API_PORT;
 
-  console.log("FbButton->SendAccessTokenToServer", serverHost, serverPort);
+  console.log("FbButton->SendAccessTokenToServer", serverHost);
   //const postURL = `${serverHost}:${serverPort}/api/facebook-login`;
   const postURL = `${serverHost}/api/facebook-login`;
   console.log(`postURL `, postURL);
