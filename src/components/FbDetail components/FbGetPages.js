@@ -6,7 +6,8 @@ const serverPort = process.env.REACT_APP_API_PORT;
 
 async function getPages({ email, setPages }) {
   console.log("FbGetPages->getPages: User has logged in", email);
-  const postURL = `${serverHost}:${serverPort}/api/facebook-get-pages`;
+  //const postURL = `${serverHost}:${serverPort}/api/facebook-get-pages`;
+  const postURL = `${serverHost}/api/facebook-get-pages`;
   try {
     const serverResponse = await axios.post(
       postURL,

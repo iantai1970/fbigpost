@@ -5,7 +5,8 @@ const serverPort = process.env.REACT_APP_API_PORT;
 
 export async function FbDeleteJob(jobId) {
   console.log("FbDeleteJob->job Id:", jobId);
-  const postURL = `${serverHost}:${serverPort}/api/facebook-delete-job`;
+  //const postURL = `${serverHost}:${serverPort}/api/facebook-delete-job`;
+  const postURL = `${serverHost}/api/facebook-delete-job`;
   try {
     const serverResponse = await axios.post(
       postURL,

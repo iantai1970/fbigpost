@@ -60,7 +60,8 @@ async function SendtoStore(
 
   try {
     console.log(`Uploading form data ${FormData}`);
-    const postURL = `${serverHost}:${serverPort}/api/save-schedule-job`;
+    //const postURL = `${serverHost}:${serverPort}/api/save-schedule-job`;
+    const postURL = `${serverHost}/api/save-schedule-job`;
     const serverResponse = await axios.post(postURL, formData, {
       headers: {
         "Content-Type": "multipart/form-data",

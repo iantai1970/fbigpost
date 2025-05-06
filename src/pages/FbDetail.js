@@ -48,7 +48,8 @@ function FbDetail() {
       if (job_id) {
         // Only fetch if job_id exists
         try {
-          const postURL = `${serverHost}:${serverPort}/api/get-job`;
+          //const postURL = `${serverHost}:${serverPort}/api/get-job`;
+          const postURL = `${serverHost}/api/get-job`;
           const response = await axios.post(
             postURL,
             {
@@ -68,7 +69,8 @@ function FbDetail() {
         }
         // fetch Images
         try {
-          const postURL = `${serverHost}:${serverPort}/api/get-images`;
+          //const postURL = `${serverHost}:${serverPort}/api/get-images`;
+          const postURL = `${serverHost}/api/get-images`;
           const response = await axios.post(
             postURL,
             {
@@ -89,7 +91,8 @@ function FbDetail() {
             // If response.data is not an empty string
             let tmpExistingImg = [];
             const tmpImages = response.data.map((item) => {
-              const tmpFilePath = `${serverHost}:${serverPort}/${item.file_path}`;
+              //const tmpFilePath = `${serverHost}:${serverPort}/${item.file_path}`;
+              const tmpFilePath = `${serverHost}/${item.file_path}`;
               tmpExistingImg.push(item.imageId);
               return { src: tmpFilePath }; // Return both fields
             });
