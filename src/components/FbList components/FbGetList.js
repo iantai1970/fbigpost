@@ -79,7 +79,9 @@ function FacebookGetList() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const postURL = `${serverHost}:${serverPort}/api/get-job-list`;
+        //const postURL = `${serverHost}:${serverPort}/api/get-job-list`;
+        const postURL = `${serverHost}/api/get-job-list`;
+
         const response = await axios.get(
           postURL // Replace with your actual API endpoint
         );
