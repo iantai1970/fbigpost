@@ -1,18 +1,15 @@
 import FacebookLogin from "react-facebook-login";
 import axios from "axios";
+import constructURL from "../utilities/ConstructURL.js";
 
 async function SendAccessTokenToServer(response, setEmail, loggedIn, setLogin) {
-  const serverHost = process.env.REACT_APP_API_URL;
-  //const serverPort = process.env.REACT_APP_API_PORT;
-
-  console.log("FbButton->SendAccessTokenToServer", serverHost);
-  //const postURL = `${serverHost}:${serverPort}/api/facebook-login`;
-  const postURL = `${serverHost}/api/facebook-login`;
-  console.log(`postURL `, postURL);
+  console.log("FbButton->SendAccessTokenToServer");
+  const connectionURL = constructURL("api/facebook-login");
+  console.log(`connectionURL `, connectionURL);
   if (response.accessToken && response.email) {
     try {
       const serverResponse = await axios.post(
-        postURL,
+        connectionURL,
         {
           accessToken: response.accessToken,
           email: response.email,

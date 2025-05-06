@@ -20,6 +20,7 @@ import {
   ColumnAutoSizeModule, // Import the missing module
 } from "ag-grid-community";
 import { RefreshButton } from "../utilities/RefreshButton";
+import constructURL from "../utilities/ConstructURL";
 
 ModuleRegistry.registerModules([
   TextFilterModule,
@@ -37,9 +38,6 @@ function FacebookGetList() {
   const myTheme = themeAlpine.withPart(colorSchemeLightCold);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const serverHost = process.env.REACT_APP_API_URL;
-  //const serverPort = process.env.REACT_APP_API_PORT;
 
   const navigate = useNavigate();
 
@@ -79,12 +77,12 @@ function FacebookGetList() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        //const getURL = `${serverHost}:${serverPort}/api/get-job-list`;
-        const getURL = `${serverHost}/api/get-job-list`;
-        console.log(`getURL is`, getURL);
+        const connectionURL = constructURL("api/get-job-list");
+
+        console.log(`connectionURL is`, connectionURL);
 
         const response = await axios.get(
-          getURL // Replace with your actual API endpoint
+          connectionURL // Replace with your actual API endpoint
         );
         console.log(`facebookGetList response.data is`, response.data[0]);
         setItems(response.data[0]); // Assuming the API returns an array of objects
@@ -97,7 +95,7 @@ function FacebookGetList() {
     };
 
     fetchData();
-  }, [serverHost]); // Empty dependency array means this runs only once on mount
+  }, []); // Empty dependency array means this runs only once on mount
 
   /*const TokenStatusCellRenderer = useCallback((params) => {
     const status = params.value; // The tokenStatus value ("Active" or "Expired")

@@ -1,7 +1,5 @@
 import axios from "axios";
-
-const serverHost = process.env.REACT_APP_API_URL;
-//const serverPort = process.env.REACT_APP_API_PORT;
+import constructURL from "../utilities/ConstructURL";
 
 async function SendtoStore(
   email,
@@ -60,9 +58,8 @@ async function SendtoStore(
 
   try {
     console.log(`Uploading form data ${FormData}`);
-    //const postURL = `${serverHost}:${serverPort}/api/save-schedule-job`;
-    const postURL = `${serverHost}/api/save-schedule-job`;
-    const serverResponse = await axios.post(postURL, formData, {
+    const connectionURL = constructURL("api/save-schedule-job");
+    const serverResponse = await axios.post(connectionURL, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-const serverHost = process.env.REACT_APP_API_URL;
-//const serverPort = process.env.REACT_APP_API_PORT;
+import constructURL from "../utilities/ConstructURL.js";
 
 async function getPages({ email, setPages }) {
   console.log("FbGetPages->getPages: User has logged in", email);
-  //const postURL = `${serverHost}:${serverPort}/api/facebook-get-pages`;
-  const postURL = `${serverHost}/api/facebook-get-pages`;
+  const connectionURL = constructURL("api/facebook-get-pages");
   try {
     const serverResponse = await axios.post(
-      postURL,
+      connectionURL,
       {
         email: email,
       },

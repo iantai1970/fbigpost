@@ -12,11 +12,11 @@ import SaveToSchedule from "../components/FbDetail components/SaveToSchedule.js"
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import ActiveStatusButton from "../components/utilities/ActiveStatusButton.js";
-
-const serverHost = process.env.REACT_APP_API_URL;
-//const serverPort = process.env.REACT_APP_API_PORT;
+import constructURL from "../components/utilities/ConstructURL.js";
 
 function FbDetail() {
+  const serverHost = process.env.REACT_APP_API_URL;
+
   const [email, setEmail] = useState("");
   const [selectFrom, setSelectFrom] = useState(""); // Initialize with null
   const [selectTo, setSelectTo] = useState(""); // Initialize with null
@@ -48,10 +48,9 @@ function FbDetail() {
       if (job_id) {
         // Only fetch if job_id exists
         try {
-          //const postURL = `${serverHost}:${serverPort}/api/get-job`;
-          const postURL = `${serverHost}/api/get-job`;
+          const connectionURL = constructURL("api/get-job");
           const response = await axios.post(
-            postURL,
+            connectionURL,
             {
               job_id: job_id,
             },
@@ -69,10 +68,9 @@ function FbDetail() {
         }
         // fetch Images
         try {
-          //const postURL = `${serverHost}:${serverPort}/api/get-images`;
-          const postURL = `${serverHost}/api/get-images`;
+          const connectionURL = constructURL(`api/get-images`);
           const response = await axios.post(
-            postURL,
+            connectionURL,
             {
               job_id: job_id,
             },
@@ -91,7 +89,6 @@ function FbDetail() {
             // If response.data is not an empty string
             let tmpExistingImg = [];
             const tmpImages = response.data.map((item) => {
-              //const tmpFilePath = `${serverHost}:${serverPort}/${item.file_path}`;
               const tmpFilePath = `${serverHost}/${item.file_path}`;
               tmpExistingImg.push(item.imageId);
               return { src: tmpFilePath }; // Return both fields
@@ -112,7 +109,7 @@ function FbDetail() {
       }
     };
     fetchData();
-  }, [job_id]);
+  }, [job_id, serverHost]);
 
   // assign the JobData into different original parameter
 
