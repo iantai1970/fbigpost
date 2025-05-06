@@ -79,8 +79,8 @@ function FacebookGetList() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const getURL = `${serverHost}:${serverPort}/api/get-job-list`;
-        //const getURL = `${serverHost}/api/get-job-list`;
+        //const getURL = `${serverHost}:${serverPort}/api/get-job-list`;
+        const getURL = `${serverHost}/api/get-job-list`;
         console.log(`getURL is`, getURL);
 
         const response = await axios.get(
