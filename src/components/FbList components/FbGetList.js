@@ -39,7 +39,7 @@ function FacebookGetList() {
   const [loading, setLoading] = useState(false);
 
   const serverHost = process.env.REACT_APP_API_URL;
-  const serverPort = process.env.REACT_APP_API_PORT;
+  //const serverPort = process.env.REACT_APP_API_PORT;
 
   const navigate = useNavigate();
 
@@ -97,7 +97,7 @@ function FacebookGetList() {
     };
 
     fetchData();
-  }, [serverHost, serverPort]); // Empty dependency array means this runs only once on mount
+  }, [serverHost]); // Empty dependency array means this runs only once on mount
 
   /*const TokenStatusCellRenderer = useCallback((params) => {
     const status = params.value; // The tokenStatus value ("Active" or "Expired")

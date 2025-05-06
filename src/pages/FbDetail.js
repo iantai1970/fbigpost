@@ -14,7 +14,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ActiveStatusButton from "../components/utilities/ActiveStatusButton.js";
 
 const serverHost = process.env.REACT_APP_API_URL;
-const serverPort = process.env.REACT_APP_API_PORT;
+//const serverPort = process.env.REACT_APP_API_PORT;
 
 function FbDetail() {
   const [email, setEmail] = useState("");

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const serverHost = process.env.REACT_APP_API_URL;
-const serverPort = process.env.REACT_APP_API_PORT;
+//const serverPort = process.env.REACT_APP_API_PORT;
 
 async function getPages({ email, setPages }) {
   console.log("FbGetPages->getPages: User has logged in", email);

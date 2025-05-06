@@ -3,7 +3,7 @@ import axios from "axios";
 
 async function SendAccessTokenToServer(response, setEmail, loggedIn, setLogin) {
   const serverHost = process.env.REACT_APP_API_URL;
-  const serverPort = process.env.REACT_APP_API_PORT;
+  //const serverPort = process.env.REACT_APP_API_PORT;
 
   console.log("FbButton->SendAccessTokenToServer", serverHost, serverPort);
   //const postURL = `${serverHost}:${serverPort}/api/facebook-login`;
