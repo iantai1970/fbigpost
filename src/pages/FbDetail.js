@@ -9,14 +9,12 @@ import PostText from "../components/FbDetail components/PostText.js";
 import UploadImage from "../components/FbDetail components/UploadImage.js";
 import FacebookGetPages from "../components/FbDetail components/FbGetPages.js";
 import SaveToSchedule from "../components/FbDetail components/SaveToSchedule.js";
-import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import ActiveStatusButton from "../components/utilities/ActiveStatusButton.js";
-import constructURL from "../components/utilities/ConstructURL.js";
+import getJobData from "../components/FbDetail components/getJobData.js";
+import getJobImages from "../components/FbDetail components/getJobImages.js";
 
 function FbDetail() {
-  const serverHost = process.env.REACT_APP_API_URL;
-
   const [email, setEmail] = useState("");
   const [selectFrom, setSelectFrom] = useState(""); // Initialize with null
   const [selectTo, setSelectTo] = useState(""); // Initialize with null
@@ -47,61 +45,11 @@ function FbDetail() {
       console.log(`useEffect fetch job entered`);
       if (job_id) {
         // Only fetch if job_id exists
-        try {
-          const connectionURL = constructURL("api/get-job");
-          const response = await axios.post(
-            connectionURL,
-            {
-              job_id: job_id,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
+        await getJobData(job_id, setJobData);
+        console.log(`useEffect get jobData`, jobData);
 
-          setJobData(response.data);
-        } catch (error) {
-          console.error("Error fetching job data:", error);
-          setJobData(null); // Handle error appropriately
-        }
-        // fetch Images
-        try {
-          const connectionURL = constructURL(`api/get-images`);
-          const response = await axios.post(
-            connectionURL,
-            {
-              job_id: job_id,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          console.log(`get-images result`, response.data);
-
-          if (response.data === "") {
-            // If response.data is an empty string
-            setFbImages([]);
-          } else {
-            // If response.data is not an empty string
-            let tmpExistingImg = [];
-            const tmpImages = response.data.map((item) => {
-              const tmpFilePath = `${serverHost}/${item.file_path}`;
-              tmpExistingImg.push(item.imageId);
-              return { src: tmpFilePath }; // Return both fields
-            });
-            console.log(`setting FbImages`, tmpImages);
-            console.log(`setting existing Image Id`, tmpExistingImg);
-            setFbImages(tmpImages); // Handle error appropriately
-            setExistingImgId(tmpExistingImg);
-          }
-        } catch (error) {
-          console.error("Error fetching Image data:", error);
-          setFbImages([]); // Handle error appropriately
-        }
+        await getJobImages(job_id, setFbImages, setExistingImgId);
+        console.log(`useEffect get jobImages`, fbImages, existingImgId);
       } else {
         // Handle the case where job_id is null or undefined
         console.warn("No job_id provided.");
@@ -109,7 +57,7 @@ function FbDetail() {
       }
     };
     fetchData();
-  }, [job_id, serverHost]);
+  }, [job_id]);
 
   // assign the JobData into different original parameter
 
