@@ -33,10 +33,21 @@ async function SendtoStore(
   formData.append("selectedPageID", selectedPageID);
   formData.append("selectedPageToken", selectedPageToken);
   formData.append("isChecked", isChecked);
-  fbImages.forEach((image) => {
+  console.log(`fbImages Length ${fbImages.length}`);
+  for (let i = 0; i < fbImages.length; i++) {
+    formData.append(`images`, fbImages[i].file);
+    console.log(`fbImage.file ${fbImages[i].file}`);
+  }
+  /*fbImages.forEach((image) => {
     formData.append(`images`, image.file);
-  });
+    console.log (`image.file ${image.file}`);
+  });*/
   console.log(`existingImgId.length`, existingImgId.length);
+  for (let i = 0; i < existingImgId.length; i++) {
+    console.log(
+      `ExistingImgId ${existingImgId[i].image_id}, ${existingImgId[i].image_key} `
+    );
+  }
 
   if (existingImgId.length === 0) {
     formData.append(`imgId[]`, ""); // Append an empty string or handle as needed
