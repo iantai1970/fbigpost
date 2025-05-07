@@ -27,7 +27,10 @@ export const getJobImages = async (job_id, setFbImages, setExistingImgId) => {
         //local implementation needs to add serverHost only
         //const tmpFilePath = `${serverHost}/${item.file_path}`;
         const tmpFilePath = `${item.file_path}`;
-        tmpExistingImgId.push(item.imageId);
+        tmpExistingImgId.push({
+          imageId: item.image_id,
+          imageKey: item.image_key,
+        });
         return { src: tmpFilePath }; // Return both fields
       });
       console.log(`setting FbImages`, tmpImages);
