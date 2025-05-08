@@ -10,8 +10,8 @@ export function DateFromTo({
   console.log(`DateFromTo rendered`, selectFrom, selectTo, typeof selectFrom);
   useEffect(() => {
     console.log(`useEffect DateFromTo entered`, selectFrom, selectTo);
-    SetDefaultDate(setSelectFrom, selectFrom);
-    SetDefaultDate(setSelectTo, selectTo);
+    SetDefaultDate(setSelectFrom, selectFrom, 0);
+    SetDefaultDate(setSelectTo, selectTo, 7);
   }, [setSelectFrom, setSelectTo, selectFrom, selectTo]); // Empty dependency array ensures this runs only once on mount
 
   const handleDateToChange = (event) => {

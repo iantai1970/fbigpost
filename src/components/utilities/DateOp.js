@@ -1,4 +1,4 @@
-export function SetDefaultDate(setSelectedDate, selectDate) {
+export function SetDefaultDate(setSelectedDate, selectDate, days) {
   // Function to format the date as YYYY-MM-DD
   const formatDate = (date) => {
     const year = date.getFullYear();
@@ -9,7 +9,7 @@ export function SetDefaultDate(setSelectedDate, selectDate) {
 
   // Set the default value to today's date
   if (!selectDate) {
-    const today = new Date();
+    const today = new Date() + days;
     setSelectedDate(formatDate(today));
   } else {
     setSelectedDate(selectDate);
