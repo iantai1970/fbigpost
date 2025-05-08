@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import FacebookLoginButton from "../components/FbDetail components/FbLoginButton.js";
 import NavbarDetail from "../components/FbDetail components/NavbarDetail.js";
-import { useState, useEffect } from "react";
 import { DateFromTo } from "../components/FbDetail components/DateFromTo.js";
 import ChooseFrequency from "../components/utilities/ChooseFrequency.js";
 import OptionDetail from "../components/FbDetail components/OptionDetail.js";
@@ -38,26 +37,28 @@ function FbDetail() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
-    console.log(`useEffect get Job entered`);
-    const fetchData = async () => {
-      console.log(`useEffect fetch job entered`);
-      if (job_id) {
-        // Only fetch if job_id exists
-        await getJobData(job_id, setJobData);
-        console.log(`useEffect get jobData`, jobData);
+    console.log(`useEffect fetch job entered`);
+    if (job_id) {
+      // Only fetch if job_id exists
+      await getJobData(job_id, setJobData);
+      console.log(`useEffect get jobData`, jobData);
 
-        await getJobImages(job_id, setFbImages, setExistingImgId);
-        console.log(`useEffect get jobImages`, fbImages, existingImgId);
-      } else {
-        // Handle the case where job_id is null or undefined
-        console.warn("No job_id provided.");
-        setJobData(null); // Or set to a default empty object if appropriate
-      }
-    };
+      await getJobImages(job_id, setFbImages, setExistingImgId);
+      console.log(`useEffect get jobImages`, fbImages, existingImgId);
+    } else {
+      // Handle the case where job_id is null or undefined
+      console.warn("No job_id provided.");
+      setJobData(null); // Or set to a default empty object if appropriate
+    }
+    setLoading(false);
+  }, [job_id, setJobData, setFbImages, setExistingImgId]);
+
+  useEffect(() => {
+    console.log(`useEffect get Job entered`);
     fetchData();
-  }, [job_id]);
+  }, [job_id, fetchData]);
 
   // assign the JobData into different original parameter
 

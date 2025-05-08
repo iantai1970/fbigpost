@@ -229,7 +229,7 @@ function FacebookGetList() {
         filter: true,
       },*/
     ],
-    [ActionButtons, JobStatusCellRenderer]
+    [ActionButtons, JobStatusCellRenderer, TokenStatusCellRenderer]
   );
 
   // Loading and Error Handling UI
