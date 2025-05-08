@@ -53,7 +53,15 @@ function FbDetail() {
       setJobData(null); // Or set to a default empty object if appropriate
     }
     setLoading(false);
-  }, [job_id, setJobData, setFbImages, setExistingImgId]);
+  }, [
+    job_id,
+    setJobData,
+    setFbImages,
+    setExistingImgId,
+    jobData,
+    fbImages,
+    existingImgId,
+  ]);
 
   useEffect(() => {
     console.log(`useEffect get Job entered`);
