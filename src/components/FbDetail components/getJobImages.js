@@ -39,8 +39,8 @@ export const getJobImages = async (job_id, setFbImages, setExistingImgId) => {
           imageKey: item.image_key,
         }; // Return both fields
       });
-      console.log(`setting FbImages`, tmpImages);
-      console.log(`setting existing Image Id`, tmpExistingImgId);
+      console.log(`get-images: setting FbImages`, tmpImages);
+      console.log(`get-images: setting existing Image Id`, tmpExistingImgId);
       setFbImages(tmpImages); // Handle error appropriately
       setExistingImgId(tmpExistingImgId);
     }

@@ -44,9 +44,7 @@ async function SendtoStore(
   });*/
   console.log(`existingImgId.length`, existingImgId.length);
   for (let i = 0; i < existingImgId.length; i++) {
-    console.log(
-      `ExistingImgId ${existingImgId[i].image_id}, ${existingImgId[i].image_key} `
-    );
+    console.log(`ExistingImgId ${existingImgId}} `);
   }
 
   if (existingImgId.length === 0) {

@@ -9,8 +9,11 @@ export function SetDefaultDate(setSelectedDate, selectDate, days) {
 
   // Set the default value to today's date
   if (!selectDate) {
-    const today = new Date() + days;
-    setSelectedDate(formatDate(today));
+    const today = new Date();
+    const toBeSetDate = new Date(today);
+
+    toBeSetDate.setDate(today.getDate() + days);
+    setSelectedDate(formatDate(toBeSetDate));
   } else {
     setSelectedDate(selectDate);
   }

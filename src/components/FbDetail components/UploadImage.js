@@ -66,33 +66,40 @@ function UploadImage({
       <div className="image-grid">
         {fbImages.map((fbImage, index) => (
           <div key={index} className="image-container">
-            <img
-              src={fbImage.src}
-              alt={`Post Pic ${index + 1}`}
-              className="image"
-            />
-            <button
-              style={{
-                position: "absolute",
-                top: "0px",
-                right: "0px",
-                background: "rgba(0, 0, 0, 0.5)",
-                color: "white",
-                border: "none",
-                cursor: "pointer",
-              }}
-              onClick={() => handleRemoveImage(index)}
-            >
+            <div>
+              <p className="text-sm text-center font-bold">
+                Image ({existingImgId[index]})
+              </p>
+            </div>
+            <div>
               <img
-                src={deleteImage}
-                alt="Delete"
+                src={fbImage.src}
+                alt={`Post Pic ${index + 1}`}
+                className="image"
+              />
+              <button
                 style={{
-                  margin: 0,
-                  width: "20px",
-                  height: "20px",
+                  position: "absolute",
+                  top: "0px",
+                  right: "0px",
+                  background: "rgba(0, 0, 0, 0.5)",
+                  color: "white",
+                  border: "none",
+                  cursor: "pointer",
                 }}
-              ></img>
-            </button>
+                onClick={() => handleRemoveImage(index)}
+              >
+                <img
+                  src={deleteImage}
+                  alt="Delete"
+                  style={{
+                    margin: 0,
+                    width: "20px",
+                    height: "20px",
+                  }}
+                ></img>
+              </button>
+            </div>
           </div>
         ))}
       </div>
