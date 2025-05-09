@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import FacebookLoginButton from "../components/FbDetail components/FbLoginButton.js";
 import NavbarDetail from "../components/FbDetail components/NavbarDetail.js";
 import { DateFromTo } from "../components/FbDetail components/DateFromTo.js";
@@ -37,31 +37,45 @@ function FbDetail() {
 
   const navigate = useNavigate();
 
+  // Create refs to hold the current values of the state variables
+  const jobDataRef = useRef(jobData);
+  const fbImagesRef = useRef(fbImages);
+  const existingImgIdRef = useRef(existingImgId);
+
+  // Update the refs whenever the state variables change
+  useEffect(() => {
+    jobDataRef.current = jobData;
+  }, [jobData]);
+
+  useEffect(() => {
+    fbImagesRef.current = fbImages;
+  }, [fbImages]);
+
+  useEffect(() => {
+    existingImgIdRef.current = existingImgId;
+  }, [existingImgId]);
+
   const fetchData = useCallback(async () => {
     setLoading(true);
     console.log(`useEffect fetch job entered`);
     if (job_id) {
       // Only fetch if job_id exists
       await getJobData(job_id, setJobData);
-      console.log(`useEffect get jobData`, jobData);
+      console.log(`useEffect get jobData`, jobDataRef.current); // Access the current value through the ref
 
       await getJobImages(job_id, setFbImages, setExistingImgId);
-      console.log(`useEffect get jobImages`, fbImages, existingImgId);
+      console.log(
+        `useEffect get jobImages`,
+        fbImagesRef.current,
+        existingImgIdRef.current
+      ); // Access the current value through the ref
     } else {
       // Handle the case where job_id is null or undefined
       console.warn("No job_id provided.");
       setJobData(null); // Or set to a default empty object if appropriate
     }
     setLoading(false);
-  }, [
-    job_id,
-    setJobData,
-    setFbImages,
-    setExistingImgId,
-    jobData,
-    fbImages,
-    existingImgId,
-  ]);
+  }, [job_id, setJobData, setFbImages, setExistingImgId]);
 
   useEffect(() => {
     console.log(`useEffect get Job entered`);
