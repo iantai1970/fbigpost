@@ -84,8 +84,9 @@ function FacebookGetList() {
         const response = await axios.get(
           connectionURL // Replace with your actual API endpoint
         );
-        console.log(`facebookGetList response.data is`, response.data[0]);
-        setItems(response.data[0]); // Assuming the API returns an array of objects
+        //const data = response.data.json();
+        console.log(`facebookGetList response.data is`, response.data);
+        setItems(response.data); // Assuming the API returns an array of objects
       } catch (err) {
         setError(err);
         console.error("Error fetching data:", err);
@@ -124,8 +125,8 @@ function FacebookGetList() {
         navigate(`/FbDetail/${params.data.job_id}`); // Navigate to the edit page
       };
 
-      const handleDeleteClick = () => {
-        FbDeleteJob(params.data.job_id);
+      const handleDeleteClick = async () => {
+        await FbDeleteJob(params.data.job_id);
         const refresh = new RefreshButton();
         refresh.handleRefresh();
       };
