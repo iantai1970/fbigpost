@@ -94,7 +94,7 @@ function FacebookLoginButton({ email, setEmail, loggedIn, setLogin }) {
         fields="name,email,picture" // Specifies the data you want to get from the user's profile
         scope="public_profile,
       email, publish_video, business_management,pages_read_engagement,pages_read_user_content,
-      pages_manage_post, pages_manage_engagement,
+      pages_manage_posts, pages_manage_engagement,
       pages_show_list,
       pages_messaging,
       pages_manage_metadata, "
