@@ -265,9 +265,6 @@ function FbDetail() {
           Save
         </button>
       </div>
-      <div>
-        <VideoUploader />
-      </div>
     </div>
   );
 }
