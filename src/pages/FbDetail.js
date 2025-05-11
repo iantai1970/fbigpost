@@ -12,6 +12,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ActiveStatusButton from "../components/utilities/ActiveStatusButton.js";
 import getJobData from "../components/FbDetail components/getJobData.js";
 import getJobImages from "../components/FbDetail components/getJobImages.js";
+import VideoUploader from "../components/FbDetail components/VideoUploader.js";
 
 function FbDetail() {
   const [email, setEmail] = useState("");
@@ -263,6 +264,9 @@ function FbDetail() {
         >
           Save
         </button>
+      </div>
+      <div>
+        <VideoUploader />
       </div>
     </div>
   );

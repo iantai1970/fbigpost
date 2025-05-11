@@ -5,13 +5,21 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   updatePassword,
+  setPersistence,
+  inMemoryPersistence,
 } from "firebase/auth";
 
+const setAuthPersistence = () => {
+  setPersistence(fireBaseAuth, inMemoryPersistence);
+};
+
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
+  setAuthPersistence();
   return createUserWithEmailAndPassword(fireBaseAuth, email, password);
 };
 
 export const doSignInWithEmailAndPassword = async (email, password) => {
+  setAuthPersistence();
   return signInWithEmailAndPassword(fireBaseAuth, email, password);
 };
 

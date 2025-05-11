@@ -16,7 +16,7 @@ function App() {
           <Route path="/FbDetail/:job_id?" element={<FbDetail />} />
           <Route path="/FbSummary" element={<FbSummary />} />
           <Route path="/UserLogin" element={<UserLogin />} />
-          <Route path="/" element={<FbSummary />} />
+          <Route path="/" element={<UserLogin />} />
         </Routes>
       </Router>
     </AuthProvider>
