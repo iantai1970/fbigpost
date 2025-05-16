@@ -43,14 +43,6 @@ async function SendtoStore(
       formData.append(`images`, fbImages[i].file);
       console.log(`fbImage.file ${fbImages[i].file}`);
     }
-    /*fbImages.forEach((image) => {
-      formData.append(`images`, image.file);
-      console.log (`image.file ${image.file}`);
-    });*/
-    console.log(`existingImgId.length`, existingImgId.length);
-    for (let i = 0; i < existingImgId.length; i++) {
-      console.log(`ExistingImgId ${existingImgId}} `);
-    }
 
     if (existingImgId.length === 0) {
       formData.append(`imgId[]`, ""); // Append an empty string or handle as needed
@@ -62,6 +54,7 @@ async function SendtoStore(
   }
   if (mediaOption === 2) {
     formData.append("video", selectedVideo);
+    formData.append("evideoId", existingImgId);
   }
   formData.append("jobId", jobId);
 

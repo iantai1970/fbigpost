@@ -6,6 +6,7 @@ export const getJobVideo = async (
   setSelectedVideo,
   setExistingVideoId
 ) => {
+  console.log(`getJobVideo() job_id: ${job_id}`);
   try {
     const connectionURL = constructURL(`api/get-video`);
     const response = await axios.post(
@@ -19,7 +20,7 @@ export const getJobVideo = async (
         },
       }
     );
-    console.log(`get-images result`, response.data);
+    console.log(`get-video result`, response.data);
 
     if (response.data === "") {
       // If response.data is an empty string

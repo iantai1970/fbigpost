@@ -18,8 +18,8 @@ import { getJobVideo } from "../components/FbDetail components/getJobVideo.js";
 
 function FbDetail() {
   const [email, setEmail] = useState("");
-  const [selectFrom, setSelectFrom] = useState(""); // Initialize with null
-  const [selectTo, setSelectTo] = useState(""); // Initialize with null
+  const [selectFrom, setSelectFrom] = useState("");
+  const [selectTo, setSelectTo] = useState("");
   const [freqOption, setfreqOption] = useState(1);
   const [Xminute, setXminute] = useState(15);
   const [Xhour, setXhour] = useState(1);
@@ -36,7 +36,6 @@ function FbDetail() {
 
   const [loggedIn, setLogin] = useState(false);
 
-  // handle job id from FbSummary
   const { job_id } = useParams();
   const [jobData, setJobData] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -78,31 +77,13 @@ function FbDetail() {
       // Only fetch if job_id exists
       await getJobData(job_id, setJobData);
       console.log(`useEffect get jobData`, jobDataRef.current); // Access the current value through the ref
-      if (jobData.mediaOption === 1) {
-        // Check if mediaOption is "1" before fetching images
-        console.log(`useEffect get jobImages entered`);
-        await getJobImages(job_id, setFbImages, setExistingImgId);
-        console.log(
-          `useEffect get jobImages`,
-          fbImagesRef.current,
-          existingImgIdRef.current
-        ); // Access the current value through the ref
-      } else {
-        console.log(`useEffect get jobVideo entered`);
-        await getJobVideo(job_id, setSelectedVideo, setExistingVideoId);
-        console.log(
-          `useEffect get jobVideo`,
-          fbImagesRef.current,
-          existingImgIdRef.current
-        ); // Access the current value through the ref
-      }
     } else {
       // Handle the case where job_id is null or undefined
       console.warn("No job_id provided.");
       setJobData(null); // Or set to a default empty object if appropriate
     }
     setLoading(false);
-  }, [job_id, setJobData, setFbImages, setExistingImgId, jobData.mediaOption]);
+  }, [job_id, setJobData]);
 
   useEffect(() => {
     console.log(`useEffect get Job entered`);
@@ -135,12 +116,41 @@ function FbDetail() {
       setYminute(jobData.Y_minute || 0);
       setPostText(jobData.post_text || "");
       setSelectedPageID(jobData.page_id || "");
-      setMediaOption(jobData.mediaOption || 1); // Default to 1 if not provided
+      setMediaOption(jobData.media_option || 1); // Default to 1 if not provided
       jobData.job_status === 1 ? setIsChecked(true) : setIsChecked(false);
       setLogin(true);
     }
     setLoading(false);
   }, [jobData, isChecked]);
+
+  // useEffect to fetch images/videos based on mediaOption
+  useEffect(() => {
+    const fetchMedia = async () => {
+      if (job_id && jobData) {
+        setLoading(true);
+        if (jobData.media_option === 1) {
+          console.log(`useEffect get jobImages entered`);
+          await getJobImages(job_id, setFbImages, setExistingImgId);
+          console.log(
+            `useEffect get jobImages`,
+            fbImagesRef.current,
+            existingImgIdRef.current
+          );
+        } else {
+          console.log(`useEffect get jobVideo entered`);
+          await getJobVideo(job_id, setSelectedVideo, setExistingVideoId);
+          console.log(
+            `useEffect get jobVideo`,
+            selectedVideoRef.current,
+            existingVideoIdRef.current
+          );
+        }
+        setLoading(false);
+      }
+    };
+
+    fetchMedia();
+  }, [job_id, jobData]);
 
   function LoginText({ email }) {
     // Capitalize and make it a component
@@ -254,7 +264,7 @@ function FbDetail() {
                 mediaOption={mediaOption}
                 setMediaOption={setMediaOption}
               />{" "}
-              {mediaOption === "1" ? (
+              {mediaOption === 1 ? (
                 <div className="p-2">
                   <UploadImage
                     fbImages={fbImages}
