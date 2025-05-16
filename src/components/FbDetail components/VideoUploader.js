@@ -1,27 +1,21 @@
-import React, { useState } from "react";
-import axios from "axios";
-import constructURL from "../utilities/ConstructURL";
+//import React, { useState } from "react";
+/*import axios from "axios";
+import constructURL from "../utilities/ConstructURL";*/
 
-const VideoUploader = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [uploadStatus, setUploadStatus] = useState("idle"); // 'idle', 'uploading', 'success', 'error'
-  const [uploadProgress, setUploadProgress] = useState(0); // Percentage
+const VideoUploader = ({ selectedFile, setSelectedFile }) => {
+  //const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setSelectedFile(event.target.files[0]);
-      setUploadStatus("idle");
-      setUploadProgress(0);
     }
   };
 
-  const handleUpload = async () => {
+  /*const handleUpload = async () => {
     if (!selectedFile) {
       alert("Please select a file first!");
       return;
     }
-
-    setUploadStatus("uploading");
 
     const formData = new FormData();
     formData.append("video", selectedFile);
@@ -52,17 +46,17 @@ const VideoUploader = () => {
       console.error("Error during video upload:", error);
       // Handle network errors or other exceptions
     }
-  };
+  };*/
 
   return (
     <div>
       <input type="file" accept="video/*" onChange={handleFileChange} />
       {selectedFile && (
-        <section>
-          <h3>Selected File:</h3>
-          <p>Name: {selectedFile.name}</p>
-          <p>Type: {selectedFile.type}</p>
-          <p>Size: {selectedFile.size} bytes</p>
+        <section className="mt-2">
+          {/*<p className="text-sm">Name: {selectedFile.name}</p>
+          <p className="text-sm">Type: {selectedFile.type}</p>
+          <p className="text-sm">Size: {selectedFile.size} bytes</p>*/}
+          <p className="text-sm text-center font-bold">Video ()</p>
           <video controls style={{ width: "100%" }}>
             <source
               src={URL.createObjectURL(selectedFile)}
@@ -72,13 +66,14 @@ const VideoUploader = () => {
           </video>
         </section>
       )}
-      {selectedFile && uploadStatus !== "uploading" && (
+      {/*  {selectedFile && uploadStatus !== "uploading" && (
         <button onClick={handleUpload}>Upload Video</button>
       )}
       {uploadStatus === "uploading" && (
         <div>
           <p>Uploading... {uploadProgress}%</p>
-          {/* You could add a visual progress bar here */}
+          {/* You could add a visual progress bar here */
+      /*}
         </div>
       )}
       {uploadStatus === "success" && (
@@ -86,7 +81,8 @@ const VideoUploader = () => {
       )}
       {uploadStatus === "error" && (
         <p style={{ color: "red" }}>Upload failed. Please try again.</p>
-      )}
+)
+} */}
     </div>
   );
 };

@@ -14,6 +14,7 @@ import getJobData from "../components/FbDetail components/getJobData.js";
 import getJobImages from "../components/FbDetail components/getJobImages.js";
 import VideoUploader from "../components/FbDetail components/VideoUploader.js";
 import ChooseMedia from "../components/utilities/ChooseMedia.js";
+import { getJobVideo } from "../components/FbDetail components/getJobVideo.js";
 
 function FbDetail() {
   const [email, setEmail] = useState("");
@@ -30,6 +31,8 @@ function FbDetail() {
   const [selectedPageToken, setSelectedPageToken] = useState("");
   const [isChecked, setIsChecked] = useState(true);
   const [mediaOption, setMediaOption] = useState(1); // Initialize with default value
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [existingVideoId, setExistingVideoId] = useState(null);
 
   const [loggedIn, setLogin] = useState(false);
 
@@ -44,6 +47,8 @@ function FbDetail() {
   const jobDataRef = useRef(jobData);
   const fbImagesRef = useRef(fbImages);
   const existingImgIdRef = useRef(existingImgId);
+  const selectedVideoRef = useRef(selectedVideo);
+  const existingVideoIdRef = useRef(existingVideoId);
 
   // Update the refs whenever the state variables change
   useEffect(() => {
@@ -58,6 +63,14 @@ function FbDetail() {
     existingImgIdRef.current = existingImgId;
   }, [existingImgId]);
 
+  useEffect(() => {
+    selectedVideoRef.current = selectedVideo;
+  }, [selectedVideo]);
+
+  useEffect(() => {
+    existingVideoIdRef.current = existingVideoId;
+  }, [existingVideoId]);
+
   const fetchData = useCallback(async () => {
     setLoading(true);
     console.log(`useEffect fetch job entered`);
@@ -65,20 +78,31 @@ function FbDetail() {
       // Only fetch if job_id exists
       await getJobData(job_id, setJobData);
       console.log(`useEffect get jobData`, jobDataRef.current); // Access the current value through the ref
-
-      await getJobImages(job_id, setFbImages, setExistingImgId);
-      console.log(
-        `useEffect get jobImages`,
-        fbImagesRef.current,
-        existingImgIdRef.current
-      ); // Access the current value through the ref
+      if (jobData.mediaOption === 1) {
+        // Check if mediaOption is "1" before fetching images
+        console.log(`useEffect get jobImages entered`);
+        await getJobImages(job_id, setFbImages, setExistingImgId);
+        console.log(
+          `useEffect get jobImages`,
+          fbImagesRef.current,
+          existingImgIdRef.current
+        ); // Access the current value through the ref
+      } else {
+        console.log(`useEffect get jobVideo entered`);
+        await getJobVideo(job_id, setSelectedVideo, setExistingVideoId);
+        console.log(
+          `useEffect get jobVideo`,
+          fbImagesRef.current,
+          existingImgIdRef.current
+        ); // Access the current value through the ref
+      }
     } else {
       // Handle the case where job_id is null or undefined
       console.warn("No job_id provided.");
       setJobData(null); // Or set to a default empty object if appropriate
     }
     setLoading(false);
-  }, [job_id, setJobData, setFbImages, setExistingImgId]);
+  }, [job_id, setJobData, setFbImages, setExistingImgId, jobData.mediaOption]);
 
   useEffect(() => {
     console.log(`useEffect get Job entered`);
@@ -111,6 +135,7 @@ function FbDetail() {
       setYminute(jobData.Y_minute || 0);
       setPostText(jobData.post_text || "");
       setSelectedPageID(jobData.page_id || "");
+      setMediaOption(jobData.mediaOption || 1); // Default to 1 if not provided
       jobData.job_status === 1 ? setIsChecked(true) : setIsChecked(false);
       setLogin(true);
     }
@@ -228,15 +253,24 @@ function FbDetail() {
               <ChooseMedia
                 mediaOption={mediaOption}
                 setMediaOption={setMediaOption}
-              />
-              <div>
-                <UploadImage
-                  fbImages={fbImages}
-                  setFbImages={setFbImages}
-                  existingImgId={existingImgId}
-                  setExistingImgId={setExistingImgId}
-                />
-              </div>
+              />{" "}
+              {mediaOption === "1" ? (
+                <div className="p-2">
+                  <UploadImage
+                    fbImages={fbImages}
+                    setFbImages={setFbImages}
+                    existingImgId={existingImgId}
+                    setExistingImgId={setExistingImgId}
+                  />
+                </div>
+              ) : (
+                <div className="p-2">
+                  <VideoUploader
+                    selectedFile={selectedVideo}
+                    setSelectedFile={setSelectedVideo}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -260,7 +294,9 @@ function FbDetail() {
               selectedPageID,
               selectedPageToken,
               job_id,
-              isChecked
+              isChecked,
+              mediaOption,
+              selectedVideo
             );
             console.log("SaveToSchedule Reply", errorCode);
             if (errorCode === 200) {
@@ -270,9 +306,6 @@ function FbDetail() {
         >
           Save
         </button>
-      </div>
-      <div>
-        <VideoUploader />
       </div>
     </div>
   );

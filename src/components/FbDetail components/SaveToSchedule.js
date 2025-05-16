@@ -15,11 +15,14 @@ async function SendtoStore(
   selectedPageID,
   selectedPageToken,
   jobId,
-  isChecked
+  isChecked,
+  mediaOption,
+  selectedVideo
 ) {
   console.log(`SaveToSchedule->sentToStore, email=${email}, selectFrom=${selectFrom}, selectTo=${selectTo}, 
       freqOption=${freqOption}, Xminute=${Xminute}, Yminute=${Yminute}, Xhour=${Xhour}, postText=${postText}, 
-      fbImages=${fbImages}, selectedPageID=${selectedPageID}, existingImgId=${existingImgId}, jobId=${jobId}, isChecked=${isChecked}`);
+      fbImages=${fbImages}, selectedPageID=${selectedPageID}, existingImgId=${existingImgId}, jobId=${jobId}, 
+      isChecked=${isChecked}, mediaOption=${mediaOption}, selectedVideo=${selectedVideo}`);
 
   const formData = new FormData();
   formData.append("email", email);
@@ -33,26 +36,32 @@ async function SendtoStore(
   formData.append("selectedPageID", selectedPageID);
   formData.append("selectedPageToken", selectedPageToken);
   formData.append("isChecked", isChecked);
-  console.log(`fbImages Length ${fbImages.length}`);
-  for (let i = 0; i < fbImages.length; i++) {
-    formData.append(`images`, fbImages[i].file);
-    console.log(`fbImage.file ${fbImages[i].file}`);
-  }
-  /*fbImages.forEach((image) => {
-    formData.append(`images`, image.file);
-    console.log (`image.file ${image.file}`);
-  });*/
-  console.log(`existingImgId.length`, existingImgId.length);
-  for (let i = 0; i < existingImgId.length; i++) {
-    console.log(`ExistingImgId ${existingImgId}} `);
-  }
+  if (mediaOption === 1) {
+    //image
+    console.log(`fbImages Length ${fbImages.length}`);
+    for (let i = 0; i < fbImages.length; i++) {
+      formData.append(`images`, fbImages[i].file);
+      console.log(`fbImage.file ${fbImages[i].file}`);
+    }
+    /*fbImages.forEach((image) => {
+      formData.append(`images`, image.file);
+      console.log (`image.file ${image.file}`);
+    });*/
+    console.log(`existingImgId.length`, existingImgId.length);
+    for (let i = 0; i < existingImgId.length; i++) {
+      console.log(`ExistingImgId ${existingImgId}} `);
+    }
 
-  if (existingImgId.length === 0) {
-    formData.append(`imgId[]`, ""); // Append an empty string or handle as needed
-  } else {
-    existingImgId.forEach((imgId) => {
-      formData.append(`imgId[]`, imgId);
-    });
+    if (existingImgId.length === 0) {
+      formData.append(`imgId[]`, ""); // Append an empty string or handle as needed
+    } else {
+      existingImgId.forEach((imgId) => {
+        formData.append(`imgId[]`, imgId);
+      });
+    }
+  }
+  if (mediaOption === 2) {
+    formData.append("video", selectedVideo);
   }
   formData.append("jobId", jobId);
 
@@ -67,7 +76,12 @@ async function SendtoStore(
 
   try {
     console.log(`Uploading form data ${FormData}`);
-    const connectionURL = constructURL("api/save-schedule-job");
+    let connectionURL = "";
+    if (mediaOption === "1") {
+      connectionURL = constructURL("api/save-schedule-job-image");
+    } else {
+      connectionURL = constructURL("api/save-schedule-job-video");
+    }
     const serverResponse = await axios.post(connectionURL, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -106,7 +120,9 @@ async function SaveToSchedule(
   selectedPageID,
   selectedPageToken,
   jobId,
-  isChecked
+  isChecked,
+  mediaOption,
+  selectedVideo
 ) {
   console.log("SaveToSchedule: parameters are email", email);
   console.log("SaveToSchedule: parameters are selectFrom", selectFrom);
@@ -121,7 +137,8 @@ async function SaveToSchedule(
   console.log("SaveToSchedule: parameters are selectedPageID", selectedPageID);
   console.log("SaveToSchedule: parameters are jobId", jobId);
   console.log("SaveToSchedule: parameters are isChecked", isChecked);
-
+  console.log("SaveToSchedule: parameters are mediaOption", mediaOption);
+  console.log("SaveToSchedule: parameters are selectedVideo", selectedVideo);
   const errorCode = await SendtoStore(
     email,
     selectFrom,
@@ -136,7 +153,9 @@ async function SaveToSchedule(
     selectedPageID,
     selectedPageToken,
     jobId,
-    isChecked
+    isChecked,
+    mediaOption,
+    selectedVideo
   );
   console.log("SendtoStore Reply", errorCode);
   return errorCode;
