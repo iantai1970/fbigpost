@@ -13,6 +13,7 @@ import ActiveStatusButton from "../components/utilities/ActiveStatusButton.js";
 import getJobData from "../components/FbDetail components/getJobData.js";
 import getJobImages from "../components/FbDetail components/getJobImages.js";
 import VideoUploader from "../components/FbDetail components/VideoUploader.js";
+import ChooseMedia from "../components/utilities/ChooseMedia.js";
 
 function FbDetail() {
   const [email, setEmail] = useState("");
@@ -28,6 +29,7 @@ function FbDetail() {
   const [selectedPageID, setSelectedPageID] = useState("");
   const [selectedPageToken, setSelectedPageToken] = useState("");
   const [isChecked, setIsChecked] = useState(true);
+  const [mediaOption, setMediaOption] = useState(1); // Initialize with default value
 
   const [loggedIn, setLogin] = useState(false);
 
@@ -222,7 +224,11 @@ function FbDetail() {
               </div>
             </div>
             <div className="section h-2/3" style={{ overflowY: "scroll" }}>
-              <div className="sectionHeader">Post Image</div>
+              <div className="sectionHeader">Post Image / Video</div>
+              <ChooseMedia
+                mediaOption={mediaOption}
+                setMediaOption={setMediaOption}
+              />
               <div>
                 <UploadImage
                   fbImages={fbImages}
@@ -264,9 +270,9 @@ function FbDetail() {
         >
           Save
         </button>
-        <div>
-          <VideoUploader />
-        </div>
+      </div>
+      <div>
+        <VideoUploader />
       </div>
     </div>
   );
