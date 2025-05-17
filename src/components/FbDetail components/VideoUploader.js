@@ -2,7 +2,12 @@
 /*import axios from "axios";
 import constructURL from "../utilities/ConstructURL";*/
 
-const VideoUploader = ({ selectedFile, setSelectedFile }) => {
+const VideoUploader = ({
+  selectedFile,
+  setSelectedFile,
+  existingVideoId,
+  setExistingVideoId,
+}) => {
   //const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (event) => {
@@ -47,7 +52,14 @@ const VideoUploader = ({ selectedFile, setSelectedFile }) => {
       // Handle network errors or other exceptions
     }
   };*/
+  console.log(`VideoUploader selectedFile`, selectedFile);
+  console.log(`VideoUploader existingVideoId`, existingVideoId);
 
+  const videoSrc = existingVideoId
+    ? selectedFile.src
+    : URL.createObjectURL(selectedFile);
+
+  console.log(`VideoUploader videoSrc`, videoSrc);
   return (
     <div>
       <input type="file" accept="video/*" onChange={handleFileChange} />
@@ -58,10 +70,7 @@ const VideoUploader = ({ selectedFile, setSelectedFile }) => {
           <p className="text-sm">Size: {selectedFile.size} bytes</p>*/}
           <p className="text-sm text-center font-bold">Video ()</p>
           <video controls style={{ width: "100%" }}>
-            <source
-              src={URL.createObjectURL(selectedFile)}
-              type={selectedFile.type}
-            />
+            <source src={videoSrc} type={selectedFile.type} />
             Your browser does not support the video tag.
           </video>
         </section>

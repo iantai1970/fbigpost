@@ -64,10 +64,12 @@ function FbDetail() {
 
   useEffect(() => {
     selectedVideoRef.current = selectedVideo;
+    console.log(`selectedVideoRef.current`, selectedVideoRef.current);
   }, [selectedVideo]);
 
   useEffect(() => {
     existingVideoIdRef.current = existingVideoId;
+    console.log(`existingVideoIdRef.current`, existingVideoIdRef.current);
   }, [existingVideoId]);
 
   const fetchData = useCallback(async () => {
@@ -278,6 +280,8 @@ function FbDetail() {
                   <VideoUploader
                     selectedFile={selectedVideo}
                     setSelectedFile={setSelectedVideo}
+                    existingVideoId={existingVideoId}
+                    setExistingVideoId={setExistingVideoId}
                   />
                 </div>
               )}
