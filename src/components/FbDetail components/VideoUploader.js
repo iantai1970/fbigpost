@@ -2,6 +2,10 @@
 /*import axios from "axios";
 import constructURL from "../utilities/ConstructURL";*/
 
+function isFile(variable) {
+  return variable instanceof File;
+}
+
 const VideoUploader = ({
   selectedFile,
   setSelectedFile,
@@ -55,12 +59,16 @@ const VideoUploader = ({
   console.log(`VideoUploader selectedFile`, selectedFile);
   console.log(`VideoUploader existingVideoId`, existingVideoId);
 
-  const videoSrc = selectedFile
-    ? URL.createObjectURL(selectedFile)
-    : existingVideoId
-    ? existingVideoId // Assuming existingVideoId is a URL or video ID
-    : null; // Or a default video URL or null
-
+  let videoSrc = null;
+  if (isFile(selectedFile)) {
+    videoSrc = selectedFile
+      ? URL.createObjectURL(selectedFile)
+      : existingVideoId
+      ? existingVideoId // Assuming existingVideoId is a URL or video ID
+      : null; // Or a default video URL or null
+  } else {
+    videoSrc = selectedFile.src;
+  }
   /*console.log(`VideoUploader videoSrc`, videoSrc);
   const videoSrc = existingVideoId
     ? selectedFile.src
@@ -75,7 +83,9 @@ const VideoUploader = ({
           {/*<p className="text-sm">Name: {selectedFile.name}</p>
           <p className="text-sm">Type: {selectedFile.type}</p>
           <p className="text-sm">Size: {selectedFile.size} bytes</p>*/}
-          <p className="text-sm text-center font-bold">Video ()</p>
+          <p className="text-sm text-center font-bold">
+            Video ({existingVideoId})
+          </p>
           <video controls style={{ width: "100%" }}>
             <source src={videoSrc} type={selectedFile.type} />
             Your browser does not support the video tag.
