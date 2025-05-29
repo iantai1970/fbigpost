@@ -155,6 +155,7 @@ async function SaveToSchedule(
     jobId,
     isChecked,
     mediaOption,
+    existingVideoId,
     selectedVideo
   );
   console.log("SendtoStore Reply", errorCode);
