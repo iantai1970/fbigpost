@@ -72,7 +72,7 @@ async function SendtoStore(
   try {
     console.log(`Uploading form data ${FormData}`);
     let connectionURL = "";
-    if (mediaOption === "1") {
+    if (mediaOption === "1" || mediaOption === 1) {
       connectionURL = constructURL("api/save-schedule-job-image");
     } else {
       connectionURL = constructURL("api/save-schedule-job-video");
