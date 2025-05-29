@@ -67,7 +67,7 @@ const VideoUploader = ({
       ? existingVideoId // Assuming existingVideoId is a URL or video ID
       : null; // Or a default video URL or null
   } else {
-    videoSrc = selectedFile.src;
+    videoSrc = selectedFile ? selectedFile.src : null;
   }
   /*console.log(`VideoUploader videoSrc`, videoSrc);
   const videoSrc = existingVideoId
