@@ -17,12 +17,13 @@ async function SendtoStore(
   jobId,
   isChecked,
   mediaOption,
+  existingVideoId,
   selectedVideo
 ) {
   console.log(`SaveToSchedule->sentToStore, email=${email}, selectFrom=${selectFrom}, selectTo=${selectTo}, 
       freqOption=${freqOption}, Xminute=${Xminute}, Yminute=${Yminute}, Xhour=${Xhour}, postText=${postText}, 
       fbImages=${fbImages}, selectedPageID=${selectedPageID}, existingImgId=${existingImgId}, jobId=${jobId}, 
-      isChecked=${isChecked}, mediaOption=${mediaOption}, selectedVideo=${selectedVideo}`);
+      isChecked=${isChecked}, mediaOption=${mediaOption}, exsitingVideoId=${existingVideoId}, selectedVideo=${selectedVideo}`);
 
   const formData = new FormData();
   formData.append("email", email);
@@ -36,7 +37,8 @@ async function SendtoStore(
   formData.append("selectedPageID", selectedPageID);
   formData.append("selectedPageToken", selectedPageToken);
   formData.append("isChecked", isChecked);
-  if (mediaOption === 1) {
+  formData.append("mediaOption", mediaOption);
+  if (mediaOption === 1 || mediaOption === "1") {
     //image
     console.log(`fbImages Length ${fbImages.length}`);
     for (let i = 0; i < fbImages.length; i++) {
@@ -52,9 +54,9 @@ async function SendtoStore(
       });
     }
   }
-  if (mediaOption === 2) {
+  if (mediaOption === "2" || mediaOption === 2) {
     formData.append("video", selectedVideo);
-    formData.append("evideoId", existingImgId);
+    formData.append("evideoId", existingVideoId);
   }
   formData.append("jobId", jobId);
 
@@ -115,6 +117,7 @@ async function SaveToSchedule(
   jobId,
   isChecked,
   mediaOption,
+  existingVideoId,
   selectedVideo
 ) {
   console.log("SaveToSchedule: parameters are email", email);
@@ -131,6 +134,10 @@ async function SaveToSchedule(
   console.log("SaveToSchedule: parameters are jobId", jobId);
   console.log("SaveToSchedule: parameters are isChecked", isChecked);
   console.log("SaveToSchedule: parameters are mediaOption", mediaOption);
+  console.log(
+    "SaveToSchedule: parameters are existingVideoId",
+    existingVideoId
+  );
   console.log("SaveToSchedule: parameters are selectedVideo", selectedVideo);
   const errorCode = await SendtoStore(
     email,

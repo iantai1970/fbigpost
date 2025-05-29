@@ -55,9 +55,16 @@ const VideoUploader = ({
   console.log(`VideoUploader selectedFile`, selectedFile);
   console.log(`VideoUploader existingVideoId`, existingVideoId);
 
+  const videoSrc = selectedFile
+    ? URL.createObjectURL(selectedFile)
+    : existingVideoId
+    ? existingVideoId // Assuming existingVideoId is a URL or video ID
+    : null; // Or a default video URL or null
+
+  /*console.log(`VideoUploader videoSrc`, videoSrc);
   const videoSrc = existingVideoId
     ? selectedFile.src
-    : URL.createObjectURL(selectedFile);
+    : URL.createObjectURL(selectedFile);*/
 
   console.log(`VideoUploader videoSrc`, videoSrc);
   return (

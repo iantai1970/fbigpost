@@ -310,6 +310,7 @@ function FbDetail() {
               job_id,
               isChecked,
               mediaOption,
+              existingVideoId,
               selectedVideo
             );
             console.log("SaveToSchedule Reply", errorCode);
